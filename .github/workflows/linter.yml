@@ -13,8 +13,4 @@ jobs:
     container: hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
     steps:
       - name: lint
-<<<<<<< HEAD
         run: tox -e lint
-=======
-        uses: tox -e lint
->>>>>>> a559edd41a64098b8170882bf8bec366737b0b65
