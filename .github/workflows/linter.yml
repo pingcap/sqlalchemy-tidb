@@ -14,4 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: lint
-        run: tox -e lint
+        uses: docker://hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
+        with:
+          args: |
+            bash -c "tox -e lint"
