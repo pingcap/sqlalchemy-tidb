@@ -17,4 +17,4 @@ jobs:
         uses: docker://hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
         with:
           args: |
-            bash -c "tox -e lint"
+            bash -c "cd /github/workspace && tox -e lint"
