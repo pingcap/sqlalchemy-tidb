@@ -10,7 +10,6 @@ jobs:
   lint:
     name: lint
     runs-on: [self-hosted,X64]
-    container: hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
     steps:
       - uses: actions/checkout@v2
       - name: lint
