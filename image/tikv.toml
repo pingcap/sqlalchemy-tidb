@@ -1,0 +1,9 @@
+[rocksdb]
+max-open-files = 4096
+[raftdb]
+max-open-files = 4096
+
+[metric]
+interval = "10s"
+address = "127.0.0.1:9091"
+job = "tikv"
