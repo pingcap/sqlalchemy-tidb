@@ -9,12 +9,11 @@ on:
 jobs:
   lint:
     name: lint
-    runs-on: [self-hosted,X64]
-    container: hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
+    runs-on: ubuntu-latest
     steps:
-      - name: lint
-<<<<<<< HEAD
-        run: tox -e lint
-=======
-        uses: tox -e lint
->>>>>>> a559edd41a64098b8170882bf8bec366737b0b65
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210819
+        name: __all__
+        with:
+          args: |
+            bash -c "pwd && ls && cat /etc/os-release && tox -e lint"
