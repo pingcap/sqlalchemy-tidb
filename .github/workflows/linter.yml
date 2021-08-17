@@ -11,7 +11,9 @@ jobs:
     name: lint
     runs-on: [self-hosted,X64]
     container: hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
+    using: 'docker'
     steps:
       - name: lint
         uses: docker://hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
-        run: tox -e lint
+        with:
+          run: tox -e lint
