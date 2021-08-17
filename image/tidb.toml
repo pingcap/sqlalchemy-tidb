@@ -1,0 +1,12 @@
+new_collations_enabled_on_first_bootstrap = true
+[experimental]
+allow-expression-index = true
+
+[tikv-client.async-commit]
+safe-window = 0
+allowed-clock-drift = 0
+
+[log]
+level = "debug"
+
+
