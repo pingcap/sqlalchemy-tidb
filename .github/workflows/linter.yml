@@ -13,4 +13,6 @@ jobs:
     container: hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
     steps:
       - name: lint
-        run: tox -e lint
+      - uses: docker://hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
+        with:
+          run: tox -e lint
