@@ -1,7 +1,6 @@
 # sqlalchemy-tidb
 
-This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to Django.
-
+This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchemy.
 
 ## Supported versions
 
