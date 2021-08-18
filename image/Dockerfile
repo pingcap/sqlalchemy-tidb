@@ -10,4 +10,4 @@ COPY tikv.conf /etc/supervisor/conf.d/
 COPY pd.conf /etc/supervisor/conf.d/
 COPY tidb.toml /conf
 COPY tikv.toml /conf
-CMD ["./entrypoint.sh"]
+RUN apt-get install -y nodejs

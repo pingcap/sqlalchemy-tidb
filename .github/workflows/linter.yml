@@ -9,10 +9,10 @@ on:
 jobs:
   lint:
     name: lint
-    runs-on: [self-hosted,X64]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker://hub-new.pingcap.net/sqlalchemy-tidb/test_env:20210817 
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210818
         name: __all__
         with:
           args: |

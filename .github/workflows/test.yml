@@ -1,0 +1,59 @@
+name: //hawkingrei/django_tidb_test_env
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_py39:
+    name: test_py39
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210818
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py39"
+  test_py38:
+    name: test_py38
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210818
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py38"
+  test_py37:
+    name: test_py37
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210818
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py37"
+  test_py36:
+    name: test_py36
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210818
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py36"
+  test_py35:
+    name: test_py35
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/django_tidb_test_env:20210818
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py35" 
