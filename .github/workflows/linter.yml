@@ -16,4 +16,4 @@ jobs:
         name: __all__
         with:
           args: |
-            bash -c "cd /github/workspace && pwd && ls && cat /etc/os-release && tox -e lint"
+            bash -c "pwd && ls && cat /etc/os-release && tox -e lint"
