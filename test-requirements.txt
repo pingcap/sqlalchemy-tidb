@@ -1,17 +1,11 @@
-git+https://github.com/sqlalchemy/alembic
-    # via -r test-requirements.in
 attrs==21.2.0
     # via pytest
 futures==3.1.1
     # via -r test-requirements.in
-greenlet==1.1.0
+greenlet==1.1.1
     # via sqlalchemy
 iniconfig==1.1.1
     # via pytest
-mako==1.1.4
-    # via alembic
-markupsafe==2.0.1
-    # via mako
 mock==4.0.3
     # via -r test-requirements.in
 more-itertools==8.8.0
@@ -31,8 +25,6 @@ pyparsing==2.4.7
 pytest==6.2.4
     # via -r test-requirements.in
 sqlalchemy==1.4.22
-    # via
-    #   -r test-requirements.in
-    #   alembic
+    # via -r test-requirements.in
 toml==0.10.2
     # via pytest
