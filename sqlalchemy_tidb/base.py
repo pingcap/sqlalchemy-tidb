@@ -131,7 +131,7 @@ class TiDBDialect(MySQLDialect):
     def _parse_server_version(self, val):
         version_list = val.split('-')
         tidb_version_list = version_list[2].lstrip('v').split('.')
-        if tidb_version_list == 'None':
+        if tidb_version_list != 'None':
             server_version_info = tuple(int(x) for x in tidb_version_list)
         else:
             server_version_info = (5,)
