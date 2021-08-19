@@ -18,11 +18,11 @@ filelock==3.0.12
     #   virtualenv
 idna==3.2
     # via requests
-importlib-metadata==4.6.3
+importlib-metadata==4.6.4
     # via
     #   keyring
     #   twine
-keyring==23.0.1
+keyring==23.1.0
     # via twine
 packaging==21.0
     # via
@@ -36,7 +36,7 @@ pluggy==0.13.1
     # via tox
 py==1.10.0
     # via tox
-pygments==2.9.0
+pygments==2.10.0
     # via readme-renderer
 pyparsing==2.4.7
     # via packaging
@@ -60,13 +60,13 @@ toml==0.10.2
     # via tox
 tox==3.24.1
     # via -r dev-requirements.in
-tqdm==4.62.0
+tqdm==4.62.1
     # via twine
 twine==3.4.2
     # via -r dev-requirements.in
 urllib3==1.26.6
     # via requests
-virtualenv==20.7.0
+virtualenv==20.7.2
     # via tox
 webencodings==0.5.1
     # via bleach
