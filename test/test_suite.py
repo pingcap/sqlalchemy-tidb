@@ -12,3 +12,14 @@
 # limitations under the License.
 
 from sqlalchemy.testing.suite import *  # noqa
+
+from sqlalchemy.testing.suite import QuotedNameArgumentTest \
+    as _QuotedNameArgumentTest
+from sqlalchemy.testing.suite import config
+
+
+class QuotedNameArgumentTest(_QuotedNameArgumentTest):
+    @_QuotedNameArgumentTest.quote_fixtures
+    def test_get_foreign_keys(self, name):
+        if config.db.dialect.tidb_version >= (5,):
+            super().test_get_foreign_keys(name, None)
