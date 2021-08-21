@@ -1,10 +1,6 @@
 #!groovy
 
 node {
-    agent {
-        docker { image 'hawkingrei:14-alpine' }
-    }
-
     currentBuild.result = "SUCCESS"
 
     try {
