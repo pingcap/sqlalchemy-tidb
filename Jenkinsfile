@@ -1,6 +1,6 @@
 #!groovy
 
-node('node') {
+node {
     agent {
         docker { image 'hawkingrei:14-alpine' }
     }
