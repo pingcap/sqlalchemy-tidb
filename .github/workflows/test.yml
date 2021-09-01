@@ -87,3 +87,44 @@ jobs:
         with:
           args: |
             bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py36"
+  test_py39_tidb_v520:
+    name: test_py39_tidb_v5.2.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/tind:v5.2.0
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py39"
+  test_py38_tidb_v520:
+    name: test_py38_tidb_v5.2.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/tind:v5.2.0
+        name: __all__
+        with:
+          entrypoint: ''
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py38"
+  test_py37_tidb_v520:
+    name: test_py37_tidb_v5.2.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/tind:v5.2.0
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py37"
+  test_py36_tidb_v520:
+    name: test_py36_tidb_v5.2.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/tind:v5.2.0
+        name: __all__
+        with:
+          args: |
+            bash -c "service supervisor start && sleep 10s && mycli -P 4000  -h 127.0.0.1  -u root --execute='create database test_sqlalchemy;create database test_schema;'  && tox -e py36"
