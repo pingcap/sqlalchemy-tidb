@@ -5,6 +5,16 @@ on:
       - main
 
 jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hawkingrei/tind:v5.1.1
+        name: __all__
+        with:
+          args: |
+            bash -c "pwd && ls && cat /etc/os-release && tox -e lint"
   test_py39_tidb_v4014:
     name: test_py39_tidb_v4.0.14
     runs-on: ubuntu-latest
