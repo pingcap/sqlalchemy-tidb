@@ -1,12 +1,14 @@
 # sqlalchemy-tidb
 
+[![.github/workflows/ci.yml](https://github.com/pingcap/sqlalchemy-tidb/actions/workflows/ci.yml/badge.svg)](https://github.com/pingcap/sqlalchemy-tidb/actions/workflows/ci.yml)
+
 This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchemy.
 
 ## Supported versions
 
-- TiDB 5.x (tested with 5.1.x)
+- TiDB 4.x and newer
 - SQLAlchemy 1.4.x
-- Python 3.6 an newer (tested with Python 3.9)
+- Python 3.6 and newer
 
 ## Installation
 
@@ -30,3 +32,8 @@ You can run the tests using the following command:
 ```
 tox
 ```
+
+## Known issues
+
+- TiDB does not support FOREIGN KEY constraints([#18209](https://github.com/pingcap/tidb/issues/18209)).
+- TiDB does not support SAVEPOINT([#6840](https://github.com/pingcap/tidb/issues/6840)).
