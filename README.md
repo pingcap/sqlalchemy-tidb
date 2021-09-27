@@ -1,12 +1,14 @@
 # sqlalchemy-tidb
 
+[![.github/workflows/ci.yml](https://github.com/pingcap/sqlalchemy-tidb/actions/workflows/ci.yml/badge.svg)](https://github.com/pingcap/sqlalchemy-tidb/actions/workflows/ci.yml)
+
 This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchemy.
 
 ## Supported versions
 
-- TiDB 5.x (tested with 5.1.x)
+- TiDB 5.x, 4.x
 - SQLAlchemy 1.4.x
-- Python 3.6 an newer (tested with Python 3.9)
+- Python 3.6 an newer
 
 ## Installation
 
