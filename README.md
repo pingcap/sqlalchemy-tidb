@@ -32,3 +32,8 @@ You can run the tests using the following command:
 ```
 tox
 ```
+
+## Known issues
+
+- TiDB does not support FOREIGN KEY constraints([#18209](https://github.com/pingcap/tidb/issues/18209)).
+- TiDB does not support SAVEPOINT([#6840](https://github.com/pingcap/tidb/issues/6840)).
