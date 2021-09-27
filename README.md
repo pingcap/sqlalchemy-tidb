@@ -6,9 +6,9 @@ This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchem
 
 ## Supported versions
 
-- TiDB 5.x, 4.x
+- TiDB 4.x and newer
 - SQLAlchemy 1.4.x
-- Python 3.6 an newer
+- Python 3.6 and newer
 
 ## Installation
 
