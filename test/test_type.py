@@ -733,7 +733,7 @@ class TypeRoundTripTest(fixtures.TestBase, AssertsExecutionResults):
 
 class JSONTest(fixtures.TestBase):
     __requires__ = ("json_type",)
-    __only_on__ = "mysql", "mariadb"
+    __only_on__ = "tidb"
     __backend__ = True
 
     @testing.requires.reflects_json_type
@@ -762,8 +762,7 @@ class JSONTest(fixtures.TestBase):
 class EnumSetTest(
     fixtures.TestBase, AssertsExecutionResults, AssertsCompiledSQL
 ):
-    __only_on__ = "mysql", "mariadb"
-    __dialect__ = mysql.dialect()
+    __only_on__ = "tidb"
     __backend__ = True
 
     class SomeEnum(object):

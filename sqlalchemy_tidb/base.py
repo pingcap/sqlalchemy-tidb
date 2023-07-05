@@ -78,12 +78,8 @@ class TiDBDialect(MySQLDialect):
         default.DefaultDialect.initialize(self, connection)
 
     def has_sequence(self, connection, sequence_name, schema=None):
-        if not self.supports_sequences:
-            self._sequences_not_supported()
         if not schema:
             schema = self.default_schema_name
-        # MariaDB implements sequences as a special type of table
-        #
         cursor = connection.execute(
             sql.text(
                 "SELECT SEQUENCE_NAME FROM INFORMATION_SCHEMA.SEQUENCES "
@@ -95,11 +91,8 @@ class TiDBDialect(MySQLDialect):
 
     @reflection.cache
     def get_sequence_names(self, connection, schema=None, **kw):
-        if not self.supports_sequences:
-            self._sequences_not_supported()
         if not schema:
             schema = self.default_schema_name
-        # MariaDB implements sequences as a special type of table
         cursor = connection.execute(
             sql.text(
                 "SELECT SEQUENCE_NAME FROM INFORMATION_SCHEMA.SEQUENCES "
@@ -113,6 +106,37 @@ class TiDBDialect(MySQLDialect):
                 cursor, charset=self._connection_charset
             )
         ]
+
+    def do_savepoint(self, connection, name):
+        if self.tidb_version < (6, 2, 0):
+            return
+        return super(TiDBDialect, self).do_savepoint(connection, name)
+
+    def do_rollback_to_savepoint(self, connection, name):
+        if self.tidb_version < (6, 2, 0):
+            return
+        return super(TiDBDialect, self).do_rollback_to_savepoint(connection, name)
+
+    def do_release_savepoint(self, connection, name):
+        if self.tidb_version < (6, 2, 0):
+            return
+        return super(TiDBDialect, self).do_release_savepoint(connection, name)
+
+    # TiDB uses a two-phase commit internally, but this is not exposed via an SQL interface
+    def do_begin_twophase(self, connection, xid):
+        pass
+
+    def do_prepare_twophase(self, connection, xid):
+        pass
+
+    def do_rollback_twophase(self, connection, xid, is_prepared, recover):
+        pass
+
+    def do_commit_twophase(self, connection, xid, is_prepared, recover):
+        pass
+
+    def do_recover_twophase(self, connection):
+        pass
 
     def _get_server_version_info(self, connection):
         # get database server version info explicitly over the wire

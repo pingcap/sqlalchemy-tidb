@@ -35,5 +35,5 @@ tox
 
 ## Known issues
 
-- TiDB does not support FOREIGN KEY constraints([#18209](https://github.com/pingcap/tidb/issues/18209)).
-- TiDB does not support SAVEPOINT([#6840](https://github.com/pingcap/tidb/issues/6840)).
+- TiDB does not support FOREIGN KEY constraints until v6.6.0([#18209](https://github.com/pingcap/tidb/issues/18209)).
+- TiDB does not support SAVEPOINT until v6.2.0([#6840](https://github.com/pingcap/tidb/issues/6840)).

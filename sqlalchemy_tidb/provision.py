@@ -15,6 +15,7 @@ from sqlalchemy.testing.provision import configure_follower
 from sqlalchemy.testing.provision import create_db
 from sqlalchemy.testing.provision import drop_db
 from sqlalchemy.testing.provision import generate_driver_url
+from sqlalchemy.testing.provision import temp_table_keyword_args
 
 
 @generate_driver_url.for_db("tidb")
@@ -76,3 +77,8 @@ def _tidb_drop_db(cfg, eng, ident):
         conn.exec_driver_sql("DROP DATABASE %s_test_schema" % ident)
         conn.exec_driver_sql("DROP DATABASE %s_test_schema_2" % ident)
         conn.exec_driver_sql("DROP DATABASE %s" % ident)
+
+
+@temp_table_keyword_args.for_db("tidb")
+def _mysql_temp_table_keyword_args(cfg, eng):
+    return {"prefixes": ["TEMPORARY"]}
