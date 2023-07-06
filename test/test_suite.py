@@ -42,8 +42,6 @@ class ComponentReflectionTest(_ComponentReflectionTest):
 
         users, addresses = (self.tables.users, self.tables.email_addresses)
         insp = inspect(connection)
-        # expected_schema = schema
-        # users
 
         if testing.requires.self_referential_foreign_keys.enabled:
             users_fkeys = insp.get_foreign_keys(users.name, schema=schema)
@@ -53,7 +51,6 @@ class ComponentReflectionTest(_ComponentReflectionTest):
                 eq_(fkey1["name"], "user_id_fk")
 
             # TiDB always returns `referred_schema`
-            # eq_(fkey1["referred_schema"], expected_schema)
             eq_(fkey1["referred_table"], users.name)
             eq_(fkey1["referred_columns"], ["user_id"])
             if testing.requires.self_referential_foreign_keys.enabled:
