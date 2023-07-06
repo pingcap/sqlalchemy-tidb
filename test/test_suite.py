@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from sqlalchemy import testing, inspect
+from sqlalchemy.testing import eq_
 from sqlalchemy.testing.suite import *  # noqa
 
 from sqlalchemy.testing.suite import QuotedNameArgumentTest \
@@ -40,7 +42,7 @@ class ComponentReflectionTest(_ComponentReflectionTest):
 
         users, addresses = (self.tables.users, self.tables.email_addresses)
         insp = inspect(connection)
-        expected_schema = schema
+        # expected_schema = schema
         # users
 
         if testing.requires.self_referential_foreign_keys.enabled:

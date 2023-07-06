@@ -12,7 +12,7 @@
 # limitations under the License.
 from alembic.testing.requirements \
     import SuiteRequirements as SuiteRequirementsAlembic
-from sqlalchemy.testing import exclusions, skip_if, fails_if, only_on, only_if
+from sqlalchemy.testing import exclusions, fails_if, only_if
 from sqlalchemy.testing.requirements \
     import SuiteRequirements as SuiteRequirementsSQLA
 
@@ -43,6 +43,7 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
 
     isolation_level = exclusions.open()
     legacy_isolation_level = exclusions.open()
+
     def get_isolation_levels(self, config):
         return {
             "default": "REPEATABLE READ",

@@ -1044,7 +1044,7 @@ def subtransaction_recipe_one(self):
 
         try:
             yield
-        except:
+        except Exception:
             if session.in_transaction():
                 session.rollback()
             raise
@@ -1075,7 +1075,7 @@ def subtransaction_recipe_three(self):
             session.begin()
             try:
                 yield
-            except:
+            except Exception:
                 if session.in_transaction():
                     session.rollback()
             else:
@@ -1083,7 +1083,7 @@ def subtransaction_recipe_three(self):
         else:
             try:
                 yield
-            except:
+            except Exception:
                 if session.in_transaction():
                     session.rollback()
                 raise
@@ -1236,7 +1236,7 @@ class SubtransactionRecipeTest(FixtureTest):
                     sess.add(User(name="u1"))
                     sess.flush()
                     raise Exception("force rollback")
-            except:
+            except Exception:
                 pass
 
             if self.recipe_rollsback_early:
@@ -1258,7 +1258,7 @@ class SubtransactionRecipeTest(FixtureTest):
                     with subtransaction_recipe(sess):
                         assert sess._legacy_transaction()
                         raise Exception("force rollback")
-                except:
+                except Exception:
                     pass
 
                 if self.recipe_rollsback_early:
@@ -2189,7 +2189,7 @@ class ContextManagerPlusFutureTest(FixtureTest):
                 )
 
                 raise Exception("force rollback")
-        except:
+        except Exception:
             pass
         is_not(sess._legacy_transaction(), None)
 
@@ -2205,7 +2205,7 @@ class ContextManagerPlusFutureTest(FixtureTest):
                 )
 
                 raise Exception("force rollback")
-        except:
+        except Exception:
             pass
         is_(sess._legacy_transaction(), None)
 
@@ -2261,7 +2261,7 @@ class ContextManagerPlusFutureTest(FixtureTest):
                     )
 
                     raise Exception("force rollback")
-        except:
+        except Exception:
             pass
 
         # rolled back
@@ -2284,7 +2284,7 @@ class ContextManagerPlusFutureTest(FixtureTest):
                     )
 
                 raise Exception("force rollback")
-        except:
+        except Exception:
             pass
 
         # committed
@@ -2308,7 +2308,7 @@ class ContextManagerPlusFutureTest(FixtureTest):
                 )
 
                 raise Exception("force rollback")
-        except:
+        except Exception:
             pass
 
         # rolled back
@@ -2332,7 +2332,7 @@ class ContextManagerPlusFutureTest(FixtureTest):
                 )
 
             raise Exception("force rollback")
-        except:
+        except Exception:
             pass
 
         # committed

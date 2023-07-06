@@ -1445,7 +1445,7 @@ class FutureTransactionTest(fixtures.FutureEngineMixin, fixtures.TablesTest):
                 assert conn.in_transaction()
                 raise Exception("some error")
             assert False
-        except:
+        except Exception:
             pass
 
         eq_(canary.mock_calls, [mock.call(conn)])
@@ -1458,7 +1458,7 @@ class FutureTransactionTest(fixtures.FutureEngineMixin, fixtures.TablesTest):
                 assert not conn.in_transaction()
                 raise Exception("some error")
             assert False
-        except:
+        except Exception:
             pass
 
         eq_(canary.mock_calls, [])

@@ -115,14 +115,16 @@ class TiDBDialect(MySQLDialect):
     def do_rollback_to_savepoint(self, connection, name):
         if self.tidb_version < (6, 2, 0):
             return
-        return super(TiDBDialect, self).do_rollback_to_savepoint(connection, name)
+        return super(TiDBDialect, self).do_rollback_to_savepoint(
+            connection, name)
 
     def do_release_savepoint(self, connection, name):
         if self.tidb_version < (6, 2, 0):
             return
         return super(TiDBDialect, self).do_release_savepoint(connection, name)
 
-    # TiDB uses a two-phase commit internally, but this is not exposed via an SQL interface
+    # TiDB uses a two-phase commit internally,
+    # but this is not exposed via an SQL interface
     def do_begin_twophase(self, connection, xid):
         pass
 
