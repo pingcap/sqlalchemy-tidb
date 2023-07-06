@@ -717,6 +717,7 @@ class SessionTransactionTest(fixtures.RemovesEvents, FixtureTest):
             sess.rollback,
         )
 
+    @testing.requires.savepoints
     @testing.requires.independent_connections
     @testing.emits_warning(".*previous exception")
     def test_failed_rollback_deactivates_transaction(self):
