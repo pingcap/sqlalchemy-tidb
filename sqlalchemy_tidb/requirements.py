@@ -10,9 +10,9 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from sqlalchemy.testing import exclusions
 from alembic.testing.requirements \
     import SuiteRequirements as SuiteRequirementsAlembic
-from sqlalchemy.testing import exclusions, fails_if, only_if
 from sqlalchemy.testing.requirements \
     import SuiteRequirements as SuiteRequirementsSQLA
 
@@ -74,27 +74,15 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
         lambda config: config.db.dialect.tidb_version < (6, 6, 0),
         'versions before 6.6.0 do not support foreign key reflection',
     )
-    foreign_key_constraint_reflection = exclusions.skip_if(
-        lambda config: config.db.dialect.tidb_version < (6, 6, 0),
-        'versions before 6.6.0 do not support foreign key reflection',
-    )
-    self_referential_foreign_keys = exclusions.skip_if(
-        lambda config: config.db.dialect.tidb_version < (6, 6, 0),
-        'versions before 6.6.0 do not support foreign key reflection',
-    )
+    foreign_key_constraint_reflection = foreign_keys
+    self_referential_foreign_keys = foreign_keys
 
     savepoints = exclusions.skip_if(
         lambda config: config.db.dialect.tidb_version < (6, 2, 0),
         'versions before 6.2.0 do not support savepoints',
     )
-    savepoints_w_release = exclusions.skip_if(
-        lambda config: config.db.dialect.tidb_version < (6, 2, 0),
-        'versions before 6.2.0 do not support savepoints',
-    )
-    compat_savepoints = exclusions.skip_if(
-        lambda config: config.db.dialect.tidb_version < (6, 2, 0),
-        'versions before 6.2.0 do not support savepoints',
-    )
+    savepoints_w_release = savepoints
+    compat_savepoints = savepoints
 
     updateable_autoincrement_pks = exclusions.open()
 
@@ -108,7 +96,7 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
             )
             return not row or "STRICT_TRANS_TABLES" not in row[1]
 
-        return only_if(check)
+        return exclusions.only_if(check)
 
     @property
     def tidb_zero_date(self):
@@ -120,14 +108,14 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
             )
             return not row or "NO_ZERO_DATE" not in row[1]
 
-        return only_if(check)
+        return exclusions.only_if(check)
 
     @property
     def precision_generic_float_type(self):
         """target backend will return native floating point numbers with at
         least seven decimal places when using the generic Float type."""
 
-        return fails_if(
+        return exclusions.fails_if(
             [
                 (
                     "tidb",
@@ -141,7 +129,7 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
     @property
     def sql_expression_limit_offset(self):
         return (
-                fails_if(
+                exclusions.fails_if(
                     ["tidb"],
                     "Target backend can't accommodate full expressions in "
                     "OFFSET or LIMIT",
