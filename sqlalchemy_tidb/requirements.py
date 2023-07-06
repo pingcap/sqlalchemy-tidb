@@ -24,7 +24,6 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
     autocommit = exclusions.open()
     views = exclusions.open()
     regexp_match = exclusions.open()
-    regexp_replace = exclusions.open()
     sequences_optional = exclusions.open()
     unicode_ddl = exclusions.open()
     unbounded_varchar = exclusions.closed()
@@ -36,6 +35,11 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
     mod_operator_as_percent_sign = exclusions.open()
     # https://github.com/pingcap/tidb/issues/45181
     ctes = exclusions.closed()
+
+    regexp_replace = exclusions.skip_if(
+        lambda config: config.db.dialect.tidb_version < (6, 5, 0),
+        'versions before 6.5.0 do not support regexp_replace',
+    )
 
     isolation_level = exclusions.open()
     legacy_isolation_level = exclusions.open()
