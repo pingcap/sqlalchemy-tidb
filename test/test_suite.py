@@ -50,7 +50,6 @@ class ComponentReflectionTest(_ComponentReflectionTest):
             with testing.requires.named_constraints.fail_if():
                 eq_(fkey1["name"], "user_id_fk")
 
-            # TiDB always returns `referred_schema`
             eq_(fkey1["referred_table"], users.name)
             eq_(fkey1["referred_columns"], ["user_id"])
             if testing.requires.self_referential_foreign_keys.enabled:
@@ -63,8 +62,6 @@ class ComponentReflectionTest(_ComponentReflectionTest):
         with testing.requires.implicitly_named_constraints.fail_if():
             self.assert_(fkey1["name"] is not None)
 
-        # TiDB always returns `referred_schema`
-        # eq_(fkey1["referred_schema"], expected_schema)
         eq_(fkey1["referred_table"], users.name)
         eq_(fkey1["referred_columns"], ["user_id"])
         eq_(fkey1["constrained_columns"], ["remote_user_id"])
