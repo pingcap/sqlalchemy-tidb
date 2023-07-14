@@ -10,23 +10,81 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from sqlalchemy.testing import exclusions
 from alembic.testing.requirements \
     import SuiteRequirements as SuiteRequirementsAlembic
-from sqlalchemy.testing import exclusions, skip_if, fails_if, only_on, only_if
 from sqlalchemy.testing.requirements \
     import SuiteRequirements as SuiteRequirementsSQLA
 
 
 class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
-    temporary_tables = exclusions.closed()
-    temp_table_reflection = exclusions.closed()
     order_by_col_from_union = exclusions.open()
     time_microseconds = exclusions.closed()
-    foreign_keys = exclusions.closed()
+    datetime_microseconds = exclusions.closed()
+    autocommit = exclusions.open()
+    views = exclusions.open()
+    regexp_match = exclusions.open()
+    sequences_optional = exclusions.open()
+    unicode_ddl = exclusions.open()
+    unbounded_varchar = exclusions.closed()
+    independent_cursors = exclusions.closed()
+    implicitly_named_constraints = exclusions.open()
+    table_ddl_if_exists = exclusions.open()
+    index_ddl_if_exists = exclusions.open()
+    comment_reflection = exclusions.open()
+    mod_operator_as_percent_sign = exclusions.open()
+    # https://github.com/pingcap/tidb/issues/45181
+    ctes = exclusions.closed()
 
-    @property
-    def reflects_json_type(self):
-        return only_on(["tidb"])
+    regexp_replace = exclusions.skip_if(
+        lambda config: config.db.dialect.tidb_version < (6, 5, 0),
+        'versions before 6.5.0 do not support regexp_replace',
+    )
+
+    isolation_level = exclusions.open()
+    legacy_isolation_level = exclusions.open()
+
+    def get_isolation_levels(self, config):
+        return {
+            "default": "REPEATABLE READ",
+            "supported": [
+                "READ COMMITTED", "REPEATABLE READ",
+                "AUTOCOMMIT"
+            ]
+        }
+
+    def get_order_by_collation(self, config):
+        return 'utf8mb4_bin'
+
+    ad_hoc_engines = exclusions.open()
+
+    temporary_tables = exclusions.skip_if(
+        lambda config: config.db.dialect.tidb_version < (5, 3, 0),
+        'versions before 5.3.0 do not support temporary tables',
+    )
+    # TiDB doesn't support CREATE INDEX for local temporary table
+    temp_table_reflect_indexes = exclusions.closed()
+    temp_table_reflection = exclusions.closed()
+
+    # https://github.com/pingcap/tidb/issues/45071
+    json_type = exclusions.closed()
+    reflects_json_type = exclusions.closed()
+
+    foreign_keys = exclusions.skip_if(
+        lambda config: config.db.dialect.tidb_version < (6, 6, 0),
+        'versions before 6.6.0 do not support foreign key reflection',
+    )
+    foreign_key_constraint_reflection = foreign_keys
+    self_referential_foreign_keys = foreign_keys
+
+    savepoints = exclusions.skip_if(
+        lambda config: config.db.dialect.tidb_version < (6, 2, 0),
+        'versions before 6.2.0 do not support savepoints',
+    )
+    savepoints_w_release = savepoints
+    compat_savepoints = savepoints
+
+    updateable_autoincrement_pks = exclusions.open()
 
     @property
     def tidb_non_strict(self):
@@ -38,7 +96,7 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
             )
             return not row or "STRICT_TRANS_TABLES" not in row[1]
 
-        return only_if(check)
+        return exclusions.only_if(check)
 
     @property
     def tidb_zero_date(self):
@@ -50,59 +108,14 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
             )
             return not row or "NO_ZERO_DATE" not in row[1]
 
-        return only_if(check)
-
-    @property
-    def datetime_microseconds(self):
-        """target dialect supports representation of Python
-        datetime.datetime() with microsecond objects."""
-
-        return skip_if(
-            ["tidb"]
-        )
-
-    @property
-    def unicode_ddl(self):
-        """Target driver must support some degree of non-ascii symbol names."""
-
-        return only_on(["tidb"])
-
-    @property
-    def unbounded_varchar(self):
-        """Target database must support VARCHAR with no length"""
-
-        return skip_if(
-            ["firebird", "oracle", "mysql", "mariadb", "tidb"],
-            "not supported by database",
-        )
-
-    @property
-    def independent_cursors(self):
-        """Target must support simultaneous, independent database cursors
-        on a single connection."""
-
-        return skip_if(["tidb"], "no driver support")
-
-    @property
-    def self_referential_foreign_keys(self):
-        """Target database must support self-referential foreign keys."""
-
-        return exclusions.closed()
-
-    @property
-    def foreign_key_constraint_reflection(self):
-        return exclusions.closed()
-
-    @property
-    def implicitly_named_constraints(self):
-        return exclusions.open()
+        return exclusions.only_if(check)
 
     @property
     def precision_generic_float_type(self):
         """target backend will return native floating point numbers with at
         least seven decimal places when using the generic Float type."""
 
-        return fails_if(
+        return exclusions.fails_if(
             [
                 (
                     "tidb",
@@ -116,30 +129,10 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
     @property
     def sql_expression_limit_offset(self):
         return (
-                fails_if(
+                exclusions.fails_if(
                     ["tidb"],
                     "Target backend can't accommodate full expressions in "
                     "OFFSET or LIMIT",
                 )
                 + self.offset
         )
-
-    @property
-    def table_ddl_if_exists(self):
-        """target platform supports IF NOT EXISTS / IF EXISTS for tables."""
-        return only_on(["tidb"])
-
-    @property
-    def index_ddl_if_exists(self):
-        """target platform supports IF NOT EXISTS / IF EXISTS for indexes."""
-        return only_on(["tidb"])
-
-    @property
-    def comment_reflection(self):
-        return only_on(["tidb"])
-
-    @property
-    def mod_operator_as_percent_sign(self):
-        """target database must use a plain percent '%' as the 'modulus'
-        operator."""
-        return only_if(["tidb"])
