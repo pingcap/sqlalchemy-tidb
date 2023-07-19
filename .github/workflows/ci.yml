@@ -38,10 +38,8 @@ jobs:
       image: wangdi4zm/tind:${{ matrix.tidb-version }}
     steps:
       - uses: actions/checkout@v3
-      - name: cat versions
-        run: cat /versions
       - name: start tidb
-        run: service supervisor start && sleep 10s
+        run: service supervisor start && sleep 20s
       - name: get tidb version
         run: mycli -P 4000  -h 127.0.0.1  -u root --execute='select tidb_version();'
       - name: init db
