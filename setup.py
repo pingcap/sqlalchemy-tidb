@@ -24,7 +24,7 @@ with open(os.path.join(os.path.dirname(__file__), "sqlalchemy_tidb", "__init__.p
 
 readme = os.path.join(os.path.dirname(__file__), "README.md")
 
-dependencies = ["sqlalchemy>=1.4"]
+dependencies = ["sqlalchemy>=1.4,<2"]
 
 setup(
     name="sqlalchemy-tidb",
