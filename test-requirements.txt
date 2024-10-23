@@ -1,5 +1,7 @@
 alembic==1.13.3
     # via -r test-requirements.in
+attrs==24.2.0
+    # via pytest
 cachetools==5.5.0
     # via tox
 chardet==5.2.0
@@ -8,8 +10,6 @@ colorama==0.4.6
     # via tox
 distlib==0.3.9
     # via virtualenv
-exceptiongroup==1.2.2
-    # via pytest
 filelock==3.16.1
     # via
     #   tox
@@ -18,8 +18,10 @@ iniconfig==2.0.0
     # via pytest
 mako==1.3.6
     # via alembic
-markupsafe==3.0.2
-    # via mako
+markupsafe==2.1.5
+    # via
+    #   -r test-requirements.in
+    #   mako
 mock==5.1.0
     # via -r test-requirements.in
 more-itertools==10.5.0
@@ -41,25 +43,27 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
+py==1.11.0
+    # via pytest
 pyproject-api==1.8.0
     # via tox
-pytest==8.3.3
+pytest==6.2.5
     # via -r test-requirements.in
-sqlalchemy==2.0.36
+sqlalchemy==1.4.54
     # via
     #   -r test-requirements.in
     #   alembic
+toml==0.10.2
+    # via pytest
 tomli==2.0.2
     # via
     #   pyproject-api
-    #   pytest
     #   tox
 tox==4.23.2
     # via -r test-requirements.in
 typing-extensions==4.12.2
     # via
     #   alembic
-    #   sqlalchemy
     #   tox
 virtualenv==20.27.0
     # via tox

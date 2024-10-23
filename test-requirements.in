@@ -4,11 +4,14 @@
 # To add/update dependencies, update test-requirements.in (not the
 # generated test-requirements.txt) and run `make update-requirements`
 
-mock
-more-itertools
+sqlalchemy>=1.4,<2
+alembic
+markupsafe==2.1.5
+
 mysqlclient
 mysql-connector
-pytest
+
+pytest>=6.2,<7
 tox
-sqlalchemy
-alembic
+mock
+more-itertools
