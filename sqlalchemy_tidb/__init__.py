@@ -12,7 +12,7 @@
 # limitations under the License.
 from sqlalchemy.dialects import registry as _registry
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 _registry.register(
     "tidb.mysqlconnector",

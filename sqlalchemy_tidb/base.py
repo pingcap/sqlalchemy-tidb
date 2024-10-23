@@ -149,7 +149,7 @@ class TiDBDialect(MySQLDialect):
         cursor.execute("SELECT VERSION()")
         val = cursor.fetchone()[0]
         cursor.close()
-        if util.py3k and isinstance(val, bytes):
+        if isinstance(val, bytes):
             val = val.decode()
 
         return self._parse_server_version(val)
