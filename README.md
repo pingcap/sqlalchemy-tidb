@@ -12,7 +12,7 @@ This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchem
 
 ## Installation
 
-```
+```bash
 pip install git+https://github.com/pingcap/sqlalchemy-tidb.git@main
 ```
 
@@ -20,7 +20,7 @@ pip install git+https://github.com/pingcap/sqlalchemy-tidb.git@main
 
 In your Python app, you can connect to the database via:
 
-```
+```python
 from sqlalchemy import create_engine
 engine = create_engine("tidb://username:password@ip:port/database_name?charset=utf8mb4")
 ```
@@ -29,11 +29,15 @@ engine = create_engine("tidb://username:password@ip:port/database_name?charset=u
 
 You can run the tests using the following command:
 
-```
+```bash
 tox
+# or test for a specified python version
+tox -e py39
 ```
 
 ## Known issues
 
-- TiDB does not support FOREIGN KEY constraints until v6.6.0([#18209](https://github.com/pingcap/tidb/issues/18209)).
-- TiDB does not support SAVEPOINT until v6.2.0([#6840](https://github.com/pingcap/tidb/issues/6840)).
+- TiDB only support `TIFLASH REPLICA` since v4.0.0([#](https://github.com/pingcap/tidb/)).
+- TiDB only support `FOREIGN KEY` constraints since v6.6.0([#18209](https://github.com/pingcap/tidb/issues/18209)).
+- TiDB only support `SAVEPOINT` since v6.2.0([#6840](https://github.com/pingcap/tidb/issues/6840)).
+- TiDB only support `VECTOR INDEX` since v8.4.0([#54245](https://github.com/pingcap/tidb/issues/54245)).
