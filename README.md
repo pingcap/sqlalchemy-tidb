@@ -8,7 +8,7 @@ This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchem
 
 - TiDB 4.x and newer
 - SQLAlchemy 1.4.x
-- Python 3.6 and newer
+- Python 3.8 and newer
 
 ## Installation
 
@@ -37,7 +37,5 @@ tox -e py39
 
 ## Known issues
 
-- TiDB only support `TIFLASH REPLICA` since v4.0.0([#](https://github.com/pingcap/tidb/)).
 - TiDB only support `FOREIGN KEY` constraints since v6.6.0([#18209](https://github.com/pingcap/tidb/issues/18209)).
 - TiDB only support `SAVEPOINT` since v6.2.0([#6840](https://github.com/pingcap/tidb/issues/6840)).
-- TiDB only support `VECTOR INDEX` since v8.4.0([#54245](https://github.com/pingcap/tidb/issues/54245)).
