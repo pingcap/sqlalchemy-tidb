@@ -40,6 +40,7 @@ from sqlalchemy.testing import eq_
 from sqlalchemy.testing import eq_regex
 from sqlalchemy.testing import fixtures
 from sqlalchemy.testing import is_
+from sqlalchemy.util import u
 
 
 class TypeCompileTest(fixtures.TestBase, AssertsCompiledSQL):
@@ -1063,17 +1064,17 @@ class EnumSetTest(
             "t",
             metadata,
             Column("id", Integer, primary_key=True),
-            Column("data", mysql.SET("réveillé", "drôle", "S’il")),
+            Column("data", mysql.SET(u("réveillé"), u("drôle"), u("S’il"))),
         )
 
         set_table.create(connection)
         connection.execute(
-            set_table.insert(), {"data": set(["réveillé", "drôle"])}
+            set_table.insert(), {"data": set([u("réveillé"), u("drôle")])}
         )
 
         row = connection.execute(set_table.select()).first()
 
-        eq_(row, (1, set(["réveillé", "drôle"])))
+        eq_(row, (1, set([u("réveillé"), u("drôle")])))
 
     def test_int_roundtrip(self, metadata, connection):
         set_table = self._set_fixture_one(metadata)
@@ -1144,25 +1145,25 @@ class EnumSetTest(
             "table",
             metadata,
             Column("id", Integer, primary_key=True),
-            Column("value", Enum("réveillé", "drôle", "S’il")),
-            Column("value2", mysql.ENUM("réveillé", "drôle", "S’il")),
+            Column("value", Enum(u("réveillé"), u("drôle"), u("S’il"))),
+            Column("value2", mysql.ENUM(u("réveillé"), u("drôle"), u("S’il"))),
         )
         metadata.create_all(connection)
 
         connection.execute(
             t1.insert(),
             [
-                dict(value="drôle", value2="drôle"),
-                dict(value="réveillé", value2="réveillé"),
-                dict(value="S’il", value2="S’il"),
+                dict(value=u("drôle"), value2=u("drôle")),
+                dict(value=u("réveillé"), value2=u("réveillé")),
+                dict(value=u("S’il"), value2=u("S’il")),
             ],
         )
         eq_(
             connection.execute(t1.select().order_by(t1.c.id)).fetchall(),
             [
-                (1, "drôle", "drôle"),
-                (2, "réveillé", "réveillé"),
-                (3, "S’il", "S’il"),
+                (1, u("drôle"), u("drôle")),
+                (2, u("réveillé"), u("réveillé")),
+                (3, u("S’il"), u("S’il")),
             ],
         )
 
@@ -1174,11 +1175,11 @@ class EnumSetTest(
         #       latin-1 stuff forcing its way in ?
 
         eq_(
-            t2.c.value.type.enums[0:2], ["réveillé", "drôle"]
+            t2.c.value.type.enums[0:2], [u("réveillé"), u("drôle")]
         )  # u'S’il') # eh ?
 
         eq_(
-            t2.c.value2.type.enums[0:2], ["réveillé", "drôle"]
+            t2.c.value2.type.enums[0:2], [u("réveillé"), u("drôle")]
         )  # u'S’il') # eh ?
 
     def test_enum_compile(self):
