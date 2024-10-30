@@ -136,3 +136,9 @@ class Requirements(SuiteRequirementsSQLA, SuiteRequirementsAlembic):
                 )
                 + self.offset
         )
+
+    @property
+    def datetime_implicit_bound(self):
+        return exclusions.fails_on(
+            ["mysql", "mariadb", "tidb"]
+        )

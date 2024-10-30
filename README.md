@@ -8,11 +8,11 @@ This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchem
 
 - TiDB 4.x and newer
 - SQLAlchemy 1.4.x
-- Python 3.6 and newer
+- Python 3.8 and newer
 
 ## Installation
 
-```
+```bash
 pip install git+https://github.com/pingcap/sqlalchemy-tidb.git@main
 ```
 
@@ -20,20 +20,35 @@ pip install git+https://github.com/pingcap/sqlalchemy-tidb.git@main
 
 In your Python app, you can connect to the database via:
 
-```
+```python
 from sqlalchemy import create_engine
 engine = create_engine("tidb://username:password@ip:port/database_name?charset=utf8mb4")
 ```
 
-## testing
+## Known issues
+
+- TiDB only support `FOREIGN KEY` constraints since v6.6.0([#18209](https://github.com/pingcap/tidb/issues/18209)).
+- TiDB only support `SAVEPOINT` since v6.2.0([#6840](https://github.com/pingcap/tidb/issues/6840)).
+
+## Testing this dialect with SQLAlchemy and Alembic
+
+Bootstrap your environment with virtualenv and requirements installed
+
+```bash
+make bootstrap
+```
 
 You can run the tests using the following command:
 
-```
-tox
+```bash
+make all
+# Or running test with `tox` for a specified python version
+tox -e py39
+# Or running test directly using `pytest`
+pytest "test/test_suite.py::DateTest"
 ```
 
-## Known issues
+To know more about developing the TiDB dialect, checkout the guide on sqlalchemy:
 
-- TiDB does not support FOREIGN KEY constraints until v6.6.0([#18209](https://github.com/pingcap/tidb/issues/18209)).
-- TiDB does not support SAVEPOINT until v6.2.0([#6840](https://github.com/pingcap/tidb/issues/6840)).
+* https://github.com/sqlalchemy/sqlalchemy/blob/rel_1_4/README.dialects.rst
+* https://github.com/sqlalchemy/sqlalchemy/blob/rel_1_4/README.unittests.rst

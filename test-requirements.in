@@ -2,14 +2,16 @@
 # virtualenvs.
 #
 # To add/update dependencies, update test-requirements.in (not the
-# generated test-requirements.txt) and run make update-requirements
+# generated test-requirements.txt) and run `make update-requirements`
 
-# Remove this once alembic 1.7 has been released
-git+https://github.com/sqlalchemy/alembic
-futures
-mock
-more-itertools
+sqlalchemy>=1.4,<2
+alembic
+markupsafe==2.1.5
+
 mysqlclient
 mysql-connector
-pytest
-sqlalchemy
+
+pytest>=6.2,<7
+tox
+mock
+more-itertools

@@ -1,10 +1,15 @@
 # Packages used by the Makefile
 #
 # To add/update dependencies, update dev-requirements.in (not the
-# generated dev-requirements.txt), run make update-requirements,
-# then make bootstrap.
+# generated dev-requirements.txt), run `make update-requirements`,
+# then `make bootstrap`.
 
-tox
+sqlalchemy>=1.4,<2
+alembic
+markupsafe==2.1.5
 
-# Twine is used in the release process to upload the package.
-twine
+# Format files
+flake8
+
+# Running tests
+pytest>=6.2,<7
