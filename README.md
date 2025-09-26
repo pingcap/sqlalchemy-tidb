@@ -1,5 +1,13 @@
 # sqlalchemy-tidb
 
+> [!IMPORTANT]
+>
+> This repository was archived and is no longer maintained (no new issues or PRs)
+>
+>
+> Please use [SQLAlchemy](https://www.sqlalchemy.org/) with the MySQL dialect to connect to TiDB — no extra third-party dialect is required.
+> For setup instructions and examples, see the official TiDB guide: https://docs.pingcap.com/tidb/stable/dev-guide-sample-application-python-sqlalchemy/
+
 [![.github/workflows/ci.yml](https://github.com/pingcap/sqlalchemy-tidb/actions/workflows/ci.yml/badge.svg)](https://github.com/pingcap/sqlalchemy-tidb/actions/workflows/ci.yml)
 
 This adds compatibility for [TiDB](https://github.com/pingcap/tidb) to SQLAlchemy.
